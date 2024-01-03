@@ -4,9 +4,10 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const morgan = require('morgan')
+const cors = require('cors')
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/Semester_Project')
+mongoose.connect('mongodb+srv://livox1180:zakihaider@semsproj.e9trhe8.mongodb.net/SemsProj?retryWrites=true&w=majority')
     .then(() => console.log('Mogoose Connected'))
     .catch(error => console.log(err));
 
@@ -14,10 +15,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/Semester_Project')
 
 const app = express()
 const port = 3000
-
+app.use(cors())
 //routes
 const loginRoute = require('./routes/loginRoute')
 const homeRoute = require('./routes/mainRoute')
+const productRoute = require('./routes/productRoute')
 
 
 // MiddleWare
@@ -41,4 +43,5 @@ app.use(express.json())
 
 app.get('/', homeRoute)
 app.use("/login", loginRoute)
+app.use("/products", productRoute)
 app.listen(port)
